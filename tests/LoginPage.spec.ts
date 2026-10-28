@@ -1,6 +1,6 @@
 
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPages';
+import { LoginPage } from '../pages/Loginpages';
 
 test('login with valid credentials', async ({ page }) => {
   const username = process.env.ORANGEHRM_USERNAME;
