@@ -1,6 +1,6 @@
 
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/Loginpages';
+import { LoginPage } from '../pages/LoginPages';
 
 test('login with valid credentials', async ({ page }) => {
   const username = process.env.ORANGEHRM_USERNAME;
@@ -8,7 +8,7 @@ test('login with valid credentials', async ({ page }) => {
 
   if (!username || !password) {
     throw new Error(
-      'Missing ORANGEHRM_USERNAME or ORANGEHRM_PASSWORD in .env.qa'
+      'Missing ORANGEHRM_USERNAME or ORANGEHRM_PASSWORD'
     );
   }
 
@@ -18,4 +18,15 @@ test('login with valid credentials', async ({ page }) => {
   await loginPage.login(username, password);
 
   await expect(page).toHaveURL(/dashboard/);
+});
+
+test('login with invalid credentials', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+  await loginPage.login('Admin', 'wrongpassword');
+
+  await expect(
+    page.locator('.oxd-alert-content-text')
+  ).toHaveText('Invalid credentials');
 });
