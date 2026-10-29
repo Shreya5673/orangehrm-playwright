@@ -30,3 +30,14 @@ test('login with invalid credentials', async ({ page }) => {
     page.locator('.oxd-alert-content-text')
   ).toHaveText('Invalid credentials');
 });
+
+
+test('login with empty credentials', async ({ page }) => {
+  const loginPage = new LoginPage(page); 
+  await loginPage.goto();
+await loginPage.login('', '');
+
+  await expect(page.getByText('Required').nth(0)).toBeVisible();
+  await expect(page.getByText('Required').nth(1)).toBeVisible();
+});
+

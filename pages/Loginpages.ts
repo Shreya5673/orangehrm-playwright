@@ -16,7 +16,7 @@ export class LoginPage {
       name: 'Login',
     });
   }
-
+  
   async goto() {
     await this.page.goto('/web/index.php/auth/login');
   }
