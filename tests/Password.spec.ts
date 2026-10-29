@@ -29,4 +29,13 @@ test('password reset successfully', async ({ page }) => {
 
 });
 
+test('password reset with empty username', async ({ page }) => {
+  const passwordPage = new Password(page);
+    await passwordPage.goto();
+    await passwordPage.clickForgotPassword();
+    await passwordPage.resetPassword('');
+
+    await expect(page.getByText('Required')).toBeVisible();
+});
+
 
